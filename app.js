@@ -9,7 +9,7 @@ const cors = require("cors")
 const app = express()
 app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "https://assesment5-27dec.onrender.com",
       methods: "GET,POST,PUT,DELETE",
       credentials: true,
     })
