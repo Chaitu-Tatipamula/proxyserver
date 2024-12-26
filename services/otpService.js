@@ -45,7 +45,7 @@ exports.generateAndSendOtp = async (username, phoneNumber) => {
     }
   } catch (error) {
     logger.error(`Failed to generate and send OTP: ${error.message}`);
-    throw new Error('Failed to generate and send OTP');
+    throw new Error(`Failed to generate and send OTP ${error}`);
   }
 };
 
