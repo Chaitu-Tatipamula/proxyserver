@@ -26,7 +26,7 @@ exports.generateAndSendOtp = async (username, phoneNumber) => {
     const accessToken = 'AAHJCwAAHuwxWs1hHfx97aOpfRpAIVdx7i0y8uMpL89Zeg';  // Replace with your actual access token
     const checkSendAbilityUrl = "https://gatewayapi.telegram.org/checkSendAbility";
 
-    const reqIdResponse = await axios.post(apiUrl, {
+    const reqIdResponse = await axios.post(checkSendAbilityUrl, {
       phone_number: parseInt(phoneNumber), 
     }, {
       headers: {
