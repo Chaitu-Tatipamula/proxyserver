@@ -24,9 +24,20 @@ exports.generateAndSendOtp = async (username, phoneNumber) => {
     // Send OTP to Telegram
     const apiUrl = "https://gatewayapi.telegram.org/sendVerificationMessage";
     const accessToken = 'AAHJCwAAHuwxWs1hHfx97aOpfRpAIVdx7i0y8uMpL89Zeg';  // Replace with your actual access token
+    const checkSendAbilityUrl = "https://gatewayapi.telegram.org/checkSendAbility";
+
+    const reqIdResponse = await axios.post(apiUrl, {
+      phone_number: parseInt(phoneNumber), 
+    }, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    console.log(reqIdResponse);
 
     const response = await axios.post(apiUrl, {
-      phone_number: parseInt(phoneNumber), // E.164 format phone number
+      phone_number: parseInt(phoneNumber),
+      request_id : reqIdResponse.data.ok.request_id,
       code_length: 6,
       ttl: 600, // Time-to-live in seconds
     }, {
@@ -34,7 +45,7 @@ exports.generateAndSendOtp = async (username, phoneNumber) => {
         'Authorization': `Bearer ${accessToken}`
       }
     });
-
+    
     if (response.data.ok) {
       const requestId = response.data.result.request_id;
       logger.info(`OTP sent to Telegram user ${phoneNumber}`);
